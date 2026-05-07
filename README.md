@@ -1,2 +1,2 @@
-# journal-app-bakend-ayush
+# journal-app-backend-ayush
 complete springboot backend
