@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.JournalEntry;
+import com.example.demo.entity.User;
 import com.example.demo.reposiratory.JournalEntryReposiratory;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +15,31 @@ public class JournalEntryService {
 
    @Autowired
     private JournalEntryReposiratory journalEntryReposiratory;
+    @Autowired
+    private UserService userService;
 
-
-   public void saveEntry(JournalEntry journalEntry)
+   public void saveEntry(JournalEntry journalEntry, String userName)
    {
-       journalEntryReposiratory.save(journalEntry);
+       User user=userService.findByUserName(userName);
+       JournalEntry saved = journalEntryReposiratory.save(journalEntry);
+
+       user.getJournalEntries().add(saved);
+       userService.saveEntry(user);
    }
+    public void saveEntry(JournalEntry journalEntry)
+    {
+        journalEntryReposiratory.save(journalEntry);
+    }
+
    public Optional<JournalEntry> findById(ObjectId id)
    {
        return journalEntryReposiratory.findById(id);
    }
-   public void deleteById(ObjectId id)
+   public void deleteById(ObjectId id, String userName)
    {
+       User user=userService.findByUserName(userName);
+       user.getJournalEntries().removeIf(x->x.getId().equals(id));
+       userService.saveEntry(user);
        journalEntryReposiratory.deleteById(id);
    }
     public List<JournalEntry> getAll() {

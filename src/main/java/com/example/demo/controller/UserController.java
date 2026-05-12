@@ -23,16 +23,20 @@ public class UserController {
      {
          return userService.getAll();
      }
+
+
      @PostMapping
      public void createUser(@RequestBody User user)
      {
          userService.saveEntry(user);
      }
 
-     @PutMapping
-    public ResponseEntity<?>uodateUser(@RequestBody User user)
+
+
+     @PutMapping("/{userName}")
+    public ResponseEntity<?>uodateUser(@RequestBody User user,@PathVariable String userName)
      {
-         User  userInDb = userService.findByUserName(user.getUserName());
+         User  userInDb = userService.findByUserName(userName);
          if(userInDb!=null)
          {
              userInDb.setUserName(user.getUserName());

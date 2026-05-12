@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -13,8 +14,8 @@ import java.util.Date;
 
 
 @Document(collection="journal_entries")
-@Component
 @Data
+@NoArgsConstructor
 public class JournalEntry {
 
     @Id
