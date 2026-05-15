@@ -42,11 +42,13 @@ public class JournalEntryContoller {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("{userName}")
-    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry myEntry,@PathVariable String userName)
+    @PostMapping()
+    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry myEntry)
     {
         try
             {
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                String userName = authentication.getName();
                 User user=userService.findByUserName(userName);
                 journalEntryService.saveEntry(myEntry,userName);
                 myEntry.setDate(LocalDateTime.now());
