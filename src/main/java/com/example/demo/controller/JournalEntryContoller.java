@@ -26,7 +26,7 @@ public class JournalEntryContoller {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("{userName}")
     public ResponseEntity<?> getAllJournalEntriesOfUser(@PathVariable String userName)
     {
         User user=userService.findByUserName(userName);
