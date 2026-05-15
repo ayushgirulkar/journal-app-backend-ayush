@@ -27,7 +27,7 @@ public class SpringSecurity {
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/journal/**").authenticated()
+                        .requestMatchers("/journal/**,/user/**").authenticated()
                         .anyRequest().permitAll()
                 )
 
