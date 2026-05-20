@@ -39,7 +39,13 @@ public class UserService {
 
     public void saveUser(User user)
     {
-        userReposiratory.save(user);
+        try {
+            userReposiratory.save(user);
+        }
+        catch (Exception e)
+        {
+            logger.error("error in  SaveUser for username {} : ",user.getUserName());
+        }
     }
 
     public List<User>getAll()
