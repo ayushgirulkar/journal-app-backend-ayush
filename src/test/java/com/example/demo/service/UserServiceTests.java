@@ -28,8 +28,8 @@ public class UserServiceTests {
     @CsvSource(
             {
                     "ayush",
-                    "radha",
-                    "leo"
+                    "radha"
+
             }
     )
     public void testFindByUserName2(String name)

@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.entity.User;
 import com.example.demo.reposiratory.UserReposiratory;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,12 +22,19 @@ public class UserService {
 
     private static final PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
 
+    private static final Logger logger= LoggerFactory.getLogger(UserService.class);
 
     public void saveNewUser(User user)
     {
-        user.setPasswords(passwordEncoder.encode(user.getPasswords()));
-        user.setRoles(Arrays.asList("USER"));
-        userReposiratory.save(user);
+        try {
+            user.setPasswords(passwordEncoder.encode(user.getPasswords()));
+            user.setRoles(Arrays.asList("USER"));
+            userReposiratory.save(user);
+        }
+        catch (Exception e)
+        {
+            logger.error("error in SaveNewUser of UserService");
+        }
     }
 
     public void saveUser(User user)

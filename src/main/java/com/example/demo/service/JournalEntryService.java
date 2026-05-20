@@ -4,6 +4,8 @@ import com.example.demo.entity.JournalEntry;
 import com.example.demo.entity.User;
 import com.example.demo.reposiratory.JournalEntryReposiratory;
 import org.bson.types.ObjectId;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,8 @@ public class JournalEntryService {
     @Autowired
     private UserService userService;
 
+
+
     @Transactional
    public void saveEntry(JournalEntry journalEntry, String userName)
    {
@@ -33,7 +37,7 @@ public class JournalEntryService {
        }
        catch (Exception e)
        {
-           System.out.print(e);
+
            throw  new RuntimeException("error aa gya bhai svae entry mai");
        }
    }
