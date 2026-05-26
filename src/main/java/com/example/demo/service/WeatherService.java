@@ -14,7 +14,7 @@ public class WeatherService {
 public String getWeather(String city)
 {
     String finalApi=API.replace("CITY",city).replace("API_KEY",apiKey);
-    restTemplate.exchange(finalApi, HttpMethod.GET,null,)
+    restTemplate.exchange(finalApi, HttpMethod.GET,null,);
 }
 
 }
