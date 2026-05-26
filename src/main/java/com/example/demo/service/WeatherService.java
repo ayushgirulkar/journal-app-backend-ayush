@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.api.response.WheatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 public class WeatherService {
@@ -11,10 +13,13 @@ public class WeatherService {
 
     @Autowired
     private RestTemplate restTemplate;
-public String getWeather(String city)
+
+public WheatherResponse getWeather(String city)
 {
     String finalApi=API.replace("CITY",city).replace("API_KEY",apiKey);
-    restTemplate.exchange(finalApi, HttpMethod.GET,null,);
+    ResponseEntity<WheatherResponse>response=restTemplate.exchange(finalApi, HttpMethod.GET,null, WheatherResponse.class);
+    WheatherResponse body=response.getBody();
+    return  body;
 }
 
 }

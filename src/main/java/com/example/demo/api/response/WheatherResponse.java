@@ -6,7 +6,7 @@ import java.util.List;
 
 public class WheatherResponse
 {
-   
+
     public Current current;
 
     public class Current{
