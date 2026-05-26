@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.api.response.WheatherResponse;
 import com.example.demo.entity.User;
 import com.example.demo.reposiratory.UserReposiratory;
 import com.example.demo.service.UserService;
+import com.example.demo.service.WeatherService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,12 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    WeatherService weatherService;
+
+    @Autowired
     private UserReposiratory userReposiratory;
+
+
 
     @PutMapping
     public ResponseEntity<?>updateUser(@RequestBody User user)
@@ -49,7 +56,13 @@ public class UserController {
     public ResponseEntity<?> greeting()
     {
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-        return new ResponseEntity<>("Hi " +authentication.getName() +",",HttpStatus.OK);
+        WheatherResponse wheatherResponse=weatherService.getWeather("Amravati");
+        String greeting ="aaj ka weather kl jaisa rahega";
+        if(wheatherResponse!=null)
+        {
+            greeting=",Today's Wheather : "+wheatherResponse.getCurrent().getTemperature();
+        }
+        return new ResponseEntity<>("Hi " +authentication.getName() +greeting, HttpStatus.OK);
     }
 
 

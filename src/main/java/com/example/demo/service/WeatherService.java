@@ -4,8 +4,10 @@ import com.example.demo.api.response.WheatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+@Component
 public class WeatherService {
 
     private static final String apiKey="e214ce574dd38cfd8e4a9d4e14c93b9f";
