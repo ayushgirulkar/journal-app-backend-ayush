@@ -19,7 +19,7 @@ public class WeatherService {
 public WheatherResponse getWeather(String city)
 {
     String finalApi=API.replace("CITY",city).replace("API_KEY",apiKey);
-    ResponseEntity<WheatherResponse>response=restTemplate.exchange(finalApi, HttpMethod.GET,null, WheatherResponse.class);
+    ResponseEntity<WheatherResponse>response=restTemplate.exchange(finalApi, HttpMethod.POST,null, WheatherResponse.class);
     WheatherResponse body=response.getBody();
     return  body;
 }
