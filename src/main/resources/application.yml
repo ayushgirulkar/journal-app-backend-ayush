@@ -4,3 +4,5 @@ spring:
       uri: mongodb+srv://ayush:Ayush2005@cluster0.5qljlqz.mongodb.net/?appName=Cluster0
       database: journaldb
       auto-index-creation: true
+
+weather_api_key: e214ce574dd38cfd8e4a9d4e14c93b9f
