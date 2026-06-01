@@ -1,4 +1,4 @@
-package com.example.demo.reposiratory;
+package com.example.demo.repository;
 
 import com.example.demo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +13,21 @@ public class UserRepositoryImpl {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public List<User>getUserForSA()
-    {
-        Query query=new Query();
-        Criteria criteria=new Criteria();
-        query.addCriteria(criteria.orOperator
-                (
-                Criteria.where("email").exists(true),
-                Criteria.where("sentimentAnalysis").is(true)
-                )
+    public List<User> getUserForSA() {
+
+        Query query = new Query();
+
+        query.addCriteria(
+                Criteria.where("email")
+                        .regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
         );
 
+        query.addCriteria(
+                Criteria.where("sentimentAnalysis").is(true)
+        );
 
-        return  mongoTemplate.find(query, User.class);
+        List<User> users = mongoTemplate.find(query, User.class);
+
+        return users;
     }
-
 }
