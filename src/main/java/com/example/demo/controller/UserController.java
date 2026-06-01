@@ -60,7 +60,7 @@ public class UserController {
         String greeting ="aaj ka weather kl jaisa rahega";
         if(wheatherResponse!=null)
         {
-            greeting=",Today's Wheather : "+wheatherResponse.getCurrent().getTemperature();
+            greeting=",Today's Wheather : "+wheatherResponse.getCurrent().getTemperature()+" °C ";
         }
         return new ResponseEntity<>("Hi " +authentication.getName() +greeting, HttpStatus.OK);
     }
