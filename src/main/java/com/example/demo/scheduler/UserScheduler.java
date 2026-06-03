@@ -5,7 +5,6 @@ import com.example.demo.entity.User;
 import com.example.demo.enums.Sentiment;
 import com.example.demo.repository.UserRepositoryImpl;
 import com.example.demo.service.EmailService;
-import com.example.demo.service.SentimateAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -26,8 +25,7 @@ public class UserScheduler {
     @Autowired
     private UserRepositoryImpl userRepository;
 
-    @Autowired
-    private SentimateAnalysisService sentimateAnalysisService;
+
 
     @Scheduled(cron="0 7 * * SUN")
     public void fetchUserAndSendMail()
@@ -52,10 +50,18 @@ public class UserScheduler {
 
            for(Map.Entry<Sentiment,Integer>entry:sentimentCounts.entrySet())
            {
-               if(entry)
+               if(entry.getValue()>maxCount)
+               {
+                   maxCount=entry.getValue();
+                   mostFrequentSentiment=entry.getKey();
+               }
            }
-            String sentimate = sentimateAnalysisService.getSentimate(join);
-            emailService.sendEmail(user.getEmail(),"sentiment for 7 days ",sentimate);
+           if(mostFrequentSentiment!=null)
+           {
+               emailService.sendEmail(user.getEmail(),"sentiment for 7 days ",mostFrequentSentiment.toString());
+           }
+
+
 
         }
 
