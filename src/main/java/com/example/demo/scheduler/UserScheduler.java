@@ -3,7 +3,8 @@ package com.example.demo.scheduler;
 import com.example.demo.entity.JournalEntry;
 import com.example.demo.entity.User;
 import com.example.demo.enums.Sentiment;
-import com.example.demo.repository.UserRepositoryImpl;
+import com.example.demo.reposiratory.UserReposiratory;
+import com.example.demo.reposiratory.UserRepositoryImpl;
 import com.example.demo.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,8 +27,7 @@ public class UserScheduler {
     private UserRepositoryImpl userRepository;
 
 
-
-    @Scheduled(cron="0 7 * * SUN")
+    @Scheduled(cron = "0 0 7 * * SUN")
     public void fetchUserAndSendMail()
     {
         List<User> users = userRepository.getUserForSA();
@@ -35,7 +35,7 @@ public class UserScheduler {
         for (User user :users)
         {
             List<JournalEntry> journalEntries = user.getJournalEntries();
-            List<Sentiment> sentiments = journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS))).map(x->x.getContent()).collect(Collectors.toList());
+            List<Sentiment> sentiments = journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS))).map(x -> x.getSentiment()).collect(Collectors.toList());
            Map<Sentiment,Integer> sentimentCounts=new HashMap<>();
 
            for(Sentiment sentiment:sentiments)
