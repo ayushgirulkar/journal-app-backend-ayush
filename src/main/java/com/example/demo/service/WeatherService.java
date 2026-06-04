@@ -39,8 +39,9 @@ public WheatherResponse getWeather(String city)
         if(body!=null)
         {
             redisService.set("weather_of_" + city,body,300l);
-            return body;
+
         }
+        return body;
     }
 
 
