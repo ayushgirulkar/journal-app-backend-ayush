@@ -27,12 +27,12 @@ public class SpringSecurity {
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/journal/**,/user/**").authenticated()
+                        .requestMatchers("/journal/**", "/user/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
 
-                .httpBasic(basic -> {});
+                .httpBasic(httpBasic -> {});
 
         return http.build();
     }
@@ -44,8 +44,8 @@ public class SpringSecurity {
 
     @Bean
     public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration config) throws Exception {
+            AuthenticationConfiguration configuration) throws Exception {
 
-        return config.getAuthenticationManager();
+        return configuration.getAuthenticationManager();
     }
 }
