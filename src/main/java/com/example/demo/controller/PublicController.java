@@ -36,7 +36,7 @@ public class PublicController {
     {
         userService.saveNewUser(user);
     }
-    @PostMapping("/create-user2")//login
+    @PostMapping("/login")//login
     public ResponseEntity<String> createUser2(@RequestBody User user)
     {
         try
