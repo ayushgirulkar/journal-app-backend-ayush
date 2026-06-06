@@ -31,7 +31,7 @@ public class PublicController {
     @Autowired
     private  JwtUtil jwtUtil;
 
-    @PostMapping("/create-user1")//signup
+    @PostMapping("/signup")//signup
     public void createUser1(@RequestBody User user)
     {
         userService.saveNewUser(user);
