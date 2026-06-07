@@ -31,12 +31,12 @@ public class PublicController {
     @Autowired
     private  JwtUtil jwtUtil;
 
-    @PostMapping("/create-user1")//signup
+    @PostMapping("/signup")//signup
     public void createUser1(@RequestBody User user)
     {
         userService.saveNewUser(user);
     }
-    @PostMapping("/create-user2")//login
+    @PostMapping("/login")//login
     public ResponseEntity<String> createUser2(@RequestBody User user)
     {
         try
